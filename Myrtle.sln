@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BC7B3940-F3AB-4C59-9659-AD2655D2136F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myrtle.AspNetCore.DataProtection.Keys", "src\Myrtle.AspNetCore.DataProtection.Keys\Myrtle.AspNetCore.DataProtection.Keys.csproj", "{095DD4C2-CC8B-452C-A7B2-D67A59975B72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-items", "{55125D3D-5D6D-4177-AAAB-A88B26993505}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		global.json = global.json
+		LICENSE = LICENSE
+		README.md = README.md
+		Release-Notes.txt = Release-Notes.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{70C8CC7F-B0E0-48ED-9143-8F65EC018F9D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logo", "logo", "{C2B92B88-127A-4B93-96F7-874766DC5F46}"
+	ProjectSection(SolutionItems) = preProject
+		assets\logo\logo-128x128.png = assets\logo\logo-128x128.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{7834C293-9FFA-451E-BC61-56A30F1D1115}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F648E961-9787-4E90-A842-212E08F3C8E2}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet-core.yml = .github\workflows\dotnet-core.yml
+		.github\workflows\publish-packages.yml = .github\workflows\publish-packages.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{095DD4C2-CC8B-452C-A7B2-D67A59975B72} = {BC7B3940-F3AB-4C59-9659-AD2655D2136F}
+		{C2B92B88-127A-4B93-96F7-874766DC5F46} = {70C8CC7F-B0E0-48ED-9143-8F65EC018F9D}
+		{F648E961-9787-4E90-A842-212E08F3C8E2} = {7834C293-9FFA-451E-BC61-56A30F1D1115}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{095DD4C2-CC8B-452C-A7B2-D67A59975B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{095DD4C2-CC8B-452C-A7B2-D67A59975B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{095DD4C2-CC8B-452C-A7B2-D67A59975B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{095DD4C2-CC8B-452C-A7B2-D67A59975B72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

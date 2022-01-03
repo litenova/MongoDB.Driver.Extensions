@@ -1,0 +1,22 @@
+<Project>
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>10.0</LangVersion>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Mohammad Shafie-Zadeh</Authors>
+        <PackageTags>DataProtection;MongoDb;AspNetCore;MongoDbDriverExtensions</PackageTags>
+        <Version>0.1.0</Version>
+        <PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SolutionDir)\Release-Notes.txt"))</PackageReleaseNotes>
+        <PackageIcon>logo-128x128.png</PackageIcon>
+        <PackageProjectUrl>https://github.com/litenova/Myrtle</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/litenova/Myrtle</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\assets\logo\logo-128x128.png" Pack="true" PackagePath=""/>
+    </ItemGroup>
+
+</Project>
