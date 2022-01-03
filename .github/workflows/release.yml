@@ -27,11 +27,11 @@ jobs:
       - name: Test
         run: dotnet test --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=../../test-results /p:CoverletOutputFormat=lcov
 
-      - name: Publish Test Coverage Report to coveralls.io
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./test-results.info
+#      - name: Publish Test Coverage Report to coveralls.io
+#        uses: coverallsapp/github-action@master
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          path-to-lcov: ./test-results.info
 
       - name: Publish Packages
         run: dotnet nuget push src/**/bin/Release/*.nupkg -k ${{secrets.Nuget_API_Key}} -s https://api.nuget.org/v3/index.json --skip-duplicate 
