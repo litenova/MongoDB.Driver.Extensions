@@ -13,15 +13,13 @@ Myrtle is a collection of useful extensions to official MongoDB C# driver.
 </h4>
 
 <p align="center">
-  <a href="https://github.com/litenova/Myrtle/actions/workflows/dotnet-core.yml">
-    <img src="https://github.com/arishk/Myrtle/actions/workflows/dotnet-core.yml/badge.svg?branch=main">
+   <a href='https://github.com/litenova/Myrtle/actions/workflows/release.yml'>
+    <img src='https://github.com/litenova/Myrtle/actions/workflows/release.yml/badge.svg' alt='Coverage Status' />
   </a>
    <a href='https://coveralls.io/github/litenova/Myrtle?branch=main'>
     <img src='https://coveralls.io/repos/github/litenova/Myrtle/badge.svg?branch=main' alt='Coverage Status' />
   </a>
-  <a href="https://www.nuget.org/packages/Myrtle">
-    <img src="https://img.shields.io/nuget/vpre/Myrtle.svg" alt="Myrtle Nuget Version">
-  </a>
+
 </p>
 
 ## Overview
@@ -31,7 +29,9 @@ Below you can find the overview and usages of each extension.
 * `Myrtle.AspNetCore.DataProtection.Keys` Adds support for storing ASP.Net Core data protection keys using MongoDb.Driver into a mongo database.
 * `Myrtle.Configuration [To Be Implemnted]` Provides integration of MongoDb.Driver with ASP.NET Core startup configuration.  
 
-## Myrtle.AspNetCore.DataProtection.Keys
+## Myrtle.AspNetCore.DataProtection.Keys 
+
+![Nuget](https://img.shields.io/nuget/v/Myrtle.AspNetCore.DataProtection.Keys)
 
 Adds support for storing ASP.Net Core data protection keys using MongoDb.Driver into a mongo database.
 
