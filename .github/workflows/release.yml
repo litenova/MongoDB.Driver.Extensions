@@ -34,7 +34,4 @@ jobs:
           path-to-lcov: ./test-results.info
 
       - name: Publish Packages
-        run: dotnet nuget push src/**/bin/Release/*.nupkg |
-        -k ${{secrets.Nuget_API_Key}} \
-        -s https://api.nuget.org/v3/index.json \ 
-        --skip-duplicate 
+        run: dotnet nuget push src/**/bin/Release/*.nupkg -k ${{secrets.Nuget_API_Key}} -s https://api.nuget.org/v3/index.json --skip-duplicate 
