@@ -132,4 +132,51 @@ public static class EntityFrameworkCoreDataProtectionExtensions
 
         return builder;
     }
+    
+    /// <summary>
+    /// Configures the data protection system to persist keys to an EntityFrameworkCore datastore
+    /// </summary>
+    /// <param name="builder">The <see cref="IDataProtectionBuilder"/> instance to modify.</param>
+    /// <param name="mongoDatabaseFactory">The factory that creates a <see cref="IMongoDatabase"/> instance</param>
+    /// <returns>The value <paramref name="builder"/>.</returns>
+    public static IDataProtectionBuilder PersistKeysToMongoDb(this IDataProtectionBuilder builder, 
+                                                              Func<IServiceProvider, IMongoDatabase> mongoDatabaseFactory)
+    {
+        builder.Services.AddSingleton<IConfigureOptions<KeyManagementOptions>>(services =>
+        {
+            var loggerFactory = services.GetService<ILoggerFactory>() ?? NullLoggerFactory.Instance;
+            var database = mongoDatabaseFactory(services);
+            var collection = database.GetCollection<DataProtectionKey>("DataProtectionKeys");
+            
+            return new ConfigureOptions<KeyManagementOptions>(options =>
+            {
+                options.XmlRepository = new MongoDbXmlRepository(loggerFactory, collection);
+            });
+        });
+
+        return builder;
+    }
+    
+    /// <summary>
+    /// Configures the data protection system to persist keys to an EntityFrameworkCore datastore
+    /// </summary>
+    /// <param name="builder">The <see cref="IDataProtectionBuilder"/> instance to modify.</param>
+    /// <param name="factory">The factory that creates a <see cref="IMongoCollection{DataProtectionKey}"/> instance</param>
+    /// <returns>The value <paramref name="builder"/>.</returns>
+    public static IDataProtectionBuilder PersistKeysToMongoDb(this IDataProtectionBuilder builder, 
+                                                              Func<IServiceProvider, IMongoCollection<DataProtectionKey>> factory)
+    {
+        builder.Services.AddSingleton<IConfigureOptions<KeyManagementOptions>>(services =>
+        {
+            var loggerFactory = services.GetService<ILoggerFactory>() ?? NullLoggerFactory.Instance;
+            var collection = factory(services);
+            
+            return new ConfigureOptions<KeyManagementOptions>(options =>
+            {
+                options.XmlRepository = new MongoDbXmlRepository(loggerFactory, collection);
+            });
+        });
+
+        return builder;
+    }
 }
