@@ -1,3 +1,8 @@
+v.0.2.0
+
+⦁ Myrtle.AspNetCore.DataProtection.Keys
+    - Add two PersistKeysToMongoDb overloads to support getting mongo collection and mongo database using IServiceProvider   
+
 v.0.1.0
 
 ⦁ Add Myrtle.AspNetCore.DataProtection.Keys

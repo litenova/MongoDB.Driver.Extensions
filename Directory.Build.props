@@ -6,7 +6,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>Mohammad Shafie-Zadeh</Authors>
         <PackageTags>DataProtection;MongoDb;AspNetCore;MongoDbDriverExtensions</PackageTags>
-        <Version>0.1.0</Version>
+        <Version>0.2.0</Version>
         <PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SolutionDir)\Release-Notes.txt"))</PackageReleaseNotes>
         <PackageIcon>logo-128x128.png</PackageIcon>
         <PackageProjectUrl>https://github.com/litenova/Myrtle</PackageProjectUrl>
