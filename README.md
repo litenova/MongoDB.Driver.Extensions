@@ -31,7 +31,8 @@ Below you can find the overview and usages of each extension.
 
 ## Myrtle.AspNetCore.DataProtection.Keys 
 
-![Nuget](https://img.shields.io/nuget/v/Myrtle.AspNetCore.DataProtection.Keys)
+[![Nuget](https://img.shields.io/nuget/v/Myrtle.AspNetCore.DataProtection.Keys)](https://www.nuget.org/packages/Myrtle.AspNetCore.DataProtection.Keys/)
+
 
 Adds support for storing ASP.Net Core data protection keys using MongoDb.Driver into a mongo database.
 
