@@ -1,3 +1,8 @@
+v1.0.1 (2024-07-12)
+⦁ Added `IMongoDatabase` and `IMongoClient` to the service collection
+⦁ Removed redundant extension method from `MongoConfigurationRegistryExtensions`
+⦁ Add the README to nuget packages
+
 v1.0.0 (2024-07-12)
 ⦁ Added comprehensive MongoDB configuration options
 ⦁ Introduced IMongoRepository<TDocument, TId> for flexible repository pattern implementation

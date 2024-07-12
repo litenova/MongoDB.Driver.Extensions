@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 using Myrtle.Abstractions;
 using Myrtle.Abstractions.Configurations;
 using Myrtle.Abstractions.Options;
@@ -56,7 +57,18 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddMongoDBCore(this IServiceCollection services)
     {
         services.AddSingleton<IMongoConnection, MongoConnection>();
+        services.AddSingleton<IMongoClient>(provider =>
+        {
+            var mongoConnection = provider.GetRequiredService<IMongoConnection>();
+            return mongoConnection.Client;
+        });
         services.AddSingleton<IMongoDatabaseContext, MongoDatabaseContext>();
+        services.AddSingleton<IMongoDatabase>(provider =>
+        {
+            var mongoDatabaseContext = provider.GetRequiredService<IMongoDatabaseContext>();
+            return mongoDatabaseContext.Database;
+        });
+
         services.AddScoped(typeof(IMongoCollectionContext<>), typeof(MongoCollectionContext<>));
         services.AddScoped(typeof(IMongoRepository<,>), typeof(MongoRepository<,>));
 

@@ -1,6 +1,6 @@
 # Myrtle
 
-![Myrtle Logo](assets/logo/logo-128x128.png)
+![Myrtle Logo](https://raw.githubusercontent.com/litenova/Myrtle/main/assets/logo/logo-128x128.png)
 
 Myrtle is a comprehensive collection of useful extensions and configurations for the official MongoDB C# driver. It aims to simplify and enhance the experience of working with MongoDB in .NET applications.
 

@@ -9,17 +9,6 @@ namespace Myrtle.Extensions;
 public static class MongoConfigurationRegistryExtensions
 {
     /// <summary>
-    /// Adds the UtcDateTimeSerializationConfiguration to the registry.
-    /// </summary>
-    /// <param name="registry">The IMongoConfigurationRegistry to add the configuration to.</param>
-    /// <returns>The IMongoConfigurationRegistry for method chaining.</returns>
-    public static IMongoConfigurationRegistry AddDateTimeSerialization(this IMongoConfigurationRegistry registry)
-    {
-        registry.Register<UtcDateTimeSerializationConfiguration>();
-        return registry;
-    }
-
-    /// <summary>
     /// Adds the DecimalConfiguration to the registry.
     /// </summary>
     /// <param name="registry">The IMongoConfigurationRegistry to add the configuration to.</param>
@@ -126,7 +115,6 @@ public static class MongoConfigurationRegistryExtensions
     public static IMongoConfigurationRegistry AddAllConfigurations(this IMongoConfigurationRegistry registry)
     {
         return registry
-            .AddDateTimeSerialization()
             .AddDecimalSerialization()
             .AddEnumRepresentation()
             .AddIgnoreExtraElements()
