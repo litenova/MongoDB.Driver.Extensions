@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-
 		LICENSE = LICENSE
 		README.md = README.md
 		Release-Notes.txt = Release-Notes.txt
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{70C8CC7F-B0E0-48ED-9143-8F65EC018F9D}"
@@ -25,13 +26,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{7834
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F648E961-9787-4E90-A842-212E08F3C8E2}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\dotnet-core.yml = .github\workflows\dotnet-core.yml
-		.github\workflows\release.yml = .github\workflows\release.yml
+		.github\workflows\ci-cd.yml = .github\workflows\ci-cd.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9B919249-B99E-41DA-9DC2-F21861910618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myrtle.Abstractions", "src\Myrtle.Abstractions\Myrtle.Abstractions.csproj", "{945BA711-0392-478F-AB56-CF39D3FCB2D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myrtle.AspNetCore.DataProtection.Keys.Tests", "tests\Myrtle.AspNetCore.DataProtection.Keys.Tests\Myrtle.AspNetCore.DataProtection.Keys.Tests.csproj", "{C9D5D127-3092-41E4-9CE6-E48802193BB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myrtle", "src\Myrtle\Myrtle.csproj", "{0E2B745C-5B26-4200-B8E3-480CD7BFC90C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myrtle.Extensions.MicrosoftDependencyInjection", "src\Myrtle.Extensions.MicrosoftDependencyInjection\Myrtle.Extensions.MicrosoftDependencyInjection.csproj", "{BC2262BB-1C20-4750-8E1F-F9009FD27A11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,16 +44,26 @@ Global
 		{095DD4C2-CC8B-452C-A7B2-D67A59975B72} = {BC7B3940-F3AB-4C59-9659-AD2655D2136F}
 		{C2B92B88-127A-4B93-96F7-874766DC5F46} = {70C8CC7F-B0E0-48ED-9143-8F65EC018F9D}
 		{F648E961-9787-4E90-A842-212E08F3C8E2} = {7834C293-9FFA-451E-BC61-56A30F1D1115}
-		{C9D5D127-3092-41E4-9CE6-E48802193BB0} = {9B919249-B99E-41DA-9DC2-F21861910618}
+		{945BA711-0392-478F-AB56-CF39D3FCB2D0} = {BC7B3940-F3AB-4C59-9659-AD2655D2136F}
+		{0E2B745C-5B26-4200-B8E3-480CD7BFC90C} = {BC7B3940-F3AB-4C59-9659-AD2655D2136F}
+		{BC2262BB-1C20-4750-8E1F-F9009FD27A11} = {BC7B3940-F3AB-4C59-9659-AD2655D2136F}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{095DD4C2-CC8B-452C-A7B2-D67A59975B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{095DD4C2-CC8B-452C-A7B2-D67A59975B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{095DD4C2-CC8B-452C-A7B2-D67A59975B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{095DD4C2-CC8B-452C-A7B2-D67A59975B72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9D5D127-3092-41E4-9CE6-E48802193BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9D5D127-3092-41E4-9CE6-E48802193BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9D5D127-3092-41E4-9CE6-E48802193BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9D5D127-3092-41E4-9CE6-E48802193BB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{945BA711-0392-478F-AB56-CF39D3FCB2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{945BA711-0392-478F-AB56-CF39D3FCB2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{945BA711-0392-478F-AB56-CF39D3FCB2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{945BA711-0392-478F-AB56-CF39D3FCB2D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E2B745C-5B26-4200-B8E3-480CD7BFC90C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E2B745C-5B26-4200-B8E3-480CD7BFC90C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E2B745C-5B26-4200-B8E3-480CD7BFC90C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E2B745C-5B26-4200-B8E3-480CD7BFC90C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC2262BB-1C20-4750-8E1F-F9009FD27A11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC2262BB-1C20-4750-8E1F-F9009FD27A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC2262BB-1C20-4750-8E1F-F9009FD27A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC2262BB-1C20-4750-8E1F-F9009FD27A11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

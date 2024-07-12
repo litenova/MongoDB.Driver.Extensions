@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>Core implementation of Myrtle, providing useful extensions and configurations for the official MongoDB C# driver.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MongoDB.Driver" Version="2.27.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Myrtle.Abstractions\Myrtle.Abstractions.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="Myrtle.Extensions.MicrosoftDependencyInjection"/>
+    </ItemGroup>
+
+</Project>

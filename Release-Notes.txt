@@ -1,8 +1,14 @@
-v.0.2.0
+v1.0.0 (2024-07-12)
+⦁ Added comprehensive MongoDB configuration options
+⦁ Introduced IMongoRepository<TDocument, TId> for flexible repository pattern implementation
+⦁ Enhanced integration with Microsoft.Extensions.DependencyInjection
+⦁ Improved documentation and README
+⦁ Added source link support for better debugging experience
+⦁ Centralized common properties in Directory.Build.props
 
+v0.2.0
 ⦁ Myrtle.AspNetCore.DataProtection.Keys
-    - Add two PersistKeysToMongoDb overloads to support getting mongo collection and mongo database using IServiceProvider   
+⦁ Add two PersistKeysToMongoDb overloads to support getting mongo collection and mongo database using IServiceProvider
 
-v.0.1.0
-
+v0.1.0
 ⦁ Add Myrtle.AspNetCore.DataProtection.Keys

@@ -1,26 +1,33 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+namespace Myrtle.AspNetCore.DataProtection.Keys;
 
 /// <summary>
-/// Code first model used by <see cref="MongoDbXmlRepository"/>.
+/// Represents a data protection key stored in MongoDB.
 /// </summary>
-public class DataProtectionKey
+/// <remarks>
+/// This class is used as the document model for storing ASP.NET Core data protection keys in MongoDB.
+/// It includes the key's friendly name and XML representation, along with a MongoDB-specific identifier.
+/// </remarks>
+public sealed class DataProtectionKey
 {
     /// <summary>
-    /// The entity identifier of the <see cref="DataProtectionKey"/>.
+    /// Gets or initializes the unique identifier for the data protection key.
     /// </summary>
+    /// <remarks>
+    /// This property is marked with [BsonId] to indicate that it serves as the document's primary key in MongoDB.
+    /// </remarks>
     [BsonId]
-    public ObjectId Id { get; set; }
+    public ObjectId Id { get; init; }
 
     /// <summary>
-    /// The friendly name of the <see cref="DataProtectionKey"/>.
+    /// Gets or initializes the friendly name of the data protection key.
     /// </summary>
-    public string? FriendlyName { get; set; }
+    public string FriendlyName { get; init; } = string.Empty;
 
     /// <summary>
-    /// The XML representation of the <see cref="DataProtectionKey"/>.
+    /// Gets or initializes the XML representation of the data protection key.
     /// </summary>
-    public string? Xml { get; set; }
+    public string Xml { get; init; } = string.Empty;
 }

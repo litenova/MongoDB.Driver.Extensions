@@ -1,22 +1,32 @@
 <Project>
-
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <LangVersion>10.0</LangVersion>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Authors>Mohammad Shafie-Zadeh</Authors>
-        <PackageTags>DataProtection;MongoDb;AspNetCore;MongoDbDriverExtensions</PackageTags>
-        <Version>0.2.0</Version>
-        <PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SolutionDir)\Release-Notes.txt"))</PackageReleaseNotes>
-        <PackageIcon>logo-128x128.png</PackageIcon>
+        <Authors>A. Shafie</Authors>
+        <PackageTags>MongoDB;AspNetCore;MongoDbDriverExtensions</PackageTags>
+        <Version>1.0.0</Version>
         <PackageProjectUrl>https://github.com/litenova/Myrtle</PackageProjectUrl>
         <RepositoryUrl>https://github.com/litenova/Myrtle</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Nullable>enable</Nullable>
+        <PackageIcon>logo-128x128.png</PackageIcon>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+        <!-- Source Link -->
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\..\assets\logo\logo-128x128.png" Pack="true" PackagePath=""/>
+        <None Include="$(MSBuildThisFileDirectory)assets\logo\logo-128x128.png" Pack="true" PackagePath=""/>
+        <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath=""/>
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    </ItemGroup>
 </Project>

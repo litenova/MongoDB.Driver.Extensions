@@ -1,0 +1,49 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          global-json-file: global.json
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+      - name: Test
+        run: dotnet test --no-build --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./tests/Myrtle.Tests/coverage.opencover.xml
+
+  publish:
+    needs: build
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          global-json-file: global.json
+      - name: Pack
+        run: |
+          dotnet pack src/Myrtle.Abstractions/Myrtle.Abstractions.csproj -c Release -o nupkgs
+          dotnet pack src/Myrtle/Myrtle.csproj -c Release -o nupkgs
+          dotnet pack src/Myrtle.Extensions.MicrosoftDependencyInjection/Myrtle.Extensions.MicrosoftDependencyInjection.csproj -c Release -o nupkgs
+          dotnet pack src/Myrtle.AspNetCore.DataProtection.Keys/Myrtle.AspNetCore.DataProtection.Keys.csproj -c Release -o nupkgs
+      - name: Push to NuGet
+        run: dotnet nuget push nupkgs/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

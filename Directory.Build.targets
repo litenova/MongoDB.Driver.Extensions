@@ -1,0 +1,14 @@
+<Project>
+    <PropertyGroup>
+        <ReleaseNotesFile>$(MSBuildThisFileDirectory)Release-Notes.txt</ReleaseNotesFile>
+    </PropertyGroup>
+
+    <Target Name="SetPackageReleaseNotes" BeforeTargets="GenerateNuspec" Condition="Exists('$(ReleaseNotesFile)')">
+        <ReadLinesFromFile File="$(ReleaseNotesFile)">
+            <Output TaskParameter="Lines" ItemName="ReleaseNoteLines"/>
+        </ReadLinesFromFile>
+        <PropertyGroup>
+            <PackageReleaseNotes>@(ReleaseNoteLines, '%0a')</PackageReleaseNotes>
+        </PropertyGroup>
+    </Target>
+</Project>
