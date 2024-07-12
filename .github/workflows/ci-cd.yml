@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
   release:
-    types: [ published ]
+    types: [ created ]
 
 jobs:
   build:
@@ -32,11 +32,24 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           global-json-file: global.json
+      - name: Get version
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          else
+            echo "VERSION=$(grep '<VersionPrefix>' Directory.Build.props | sed 's/.*<VersionPrefix>\(.*\)<\/VersionPrefix>.*/\1/')" >> $GITHUB_OUTPUT
+          fi
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore --configuration Release /p:Version=${{ steps.get_version.outputs.VERSION }}
       - name: Pack
         run: |
-          dotnet pack src/Myrtle.Abstractions/Myrtle.Abstractions.csproj -c Release -o nupkgs
-          dotnet pack src/Myrtle/Myrtle.csproj -c Release -o nupkgs
-          dotnet pack src/Myrtle.Extensions.MicrosoftDependencyInjection/Myrtle.Extensions.MicrosoftDependencyInjection.csproj -c Release -o nupkgs
-          dotnet pack src/Myrtle.AspNetCore.DataProtection.Keys/Myrtle.AspNetCore.DataProtection.Keys.csproj -c Release -o nupkgs
+          dotnet pack src/Myrtle.Abstractions/Myrtle.Abstractions.csproj -c Release -o nupkgs --no-build /p:Version=${{ steps.get_version.outputs.VERSION }}
+          dotnet pack src/Myrtle/Myrtle.csproj -c Release -o nupkgs --no-build /p:Version=${{ steps.get_version.outputs.VERSION }}
+          dotnet pack src/Myrtle.Extensions.MicrosoftDependencyInjection/Myrtle.Extensions.MicrosoftDependencyInjection.csproj -c Release -o nupkgs --no-build /p:Version=${{ steps.get_version.outputs.VERSION }}
+          dotnet pack src/Myrtle.AspNetCore.DataProtection.Keys/Myrtle.AspNetCore.DataProtection.Keys.csproj -c Release -o nupkgs --no-build /p:Version=${{ steps.get_version.outputs.VERSION }}
       - name: Push to NuGet
+        if: github.event_name == 'release'
         run: dotnet nuget push nupkgs/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
