@@ -1,3 +1,6 @@
+v1.0.2 (2024-07-13)
+⦁ Renamed registry extension methods to be more clear they are registering mongo configurations
+
 v1.0.1 (2024-07-12)
 ⦁ Added `IMongoDatabase` and `IMongoClient` to the service collection
 ⦁ Removed redundant extension method from `MongoConfigurationRegistryExtensions`
