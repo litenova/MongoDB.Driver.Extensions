@@ -1,3 +1,6 @@
+v1.1.0 (2024-07-13)
+⦁ Register `IMongoConnectionStringProvider` and `IMongoDatabaseNameProvider` in DI
+
 v1.0.2 (2024-07-13)
 ⦁ Renamed registry extension methods to be more clear they are registering mongo configurations
 

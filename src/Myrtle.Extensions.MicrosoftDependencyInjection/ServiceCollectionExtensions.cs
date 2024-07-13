@@ -13,22 +13,6 @@ namespace Myrtle.Extensions.MicrosoftDependencyInjection;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds MongoDB services to the specified IServiceCollection with the provided options.
-    /// </summary>
-    /// <param name="services">The IServiceCollection to add services to.</param>
-    /// <param name="options">The MongoDB options.</param>
-    /// <returns>The IServiceCollection so that additional calls can be chained.</returns>
-    /// <remarks>
-    /// This method adds the core MongoDB services to the dependency injection container,
-    /// including IMongoConnection, IMongoDatabaseContext, and generic repositories.
-    /// </remarks>
-    public static IServiceCollection AddMongoDB(this IServiceCollection services, MongoDbOptions options)
-    {
-        services.AddSingleton<IMongoOptionsProvider>(options);
-        return services.AddMongoDBCore();
-    }
-
-    /// <summary>
     /// Adds MongoDB services to the specified IServiceCollection with a custom options configuration.
     /// </summary>
     /// <param name="services">The IServiceCollection to add services to.</param>
@@ -43,6 +27,25 @@ public static class ServiceCollectionExtensions
         var options = new MongoDbOptions();
         setupAction(options);
         return services.AddMongoDB(options);
+    }
+
+    /// <summary>
+    /// Adds MongoDB services to the specified IServiceCollection with the provided options.
+    /// </summary>
+    /// <param name="services">The IServiceCollection to add services to.</param>
+    /// <param name="options">The MongoDB options.</param>
+    /// <returns>The IServiceCollection so that additional calls can be chained.</returns>
+    /// <remarks>
+    /// This method adds the core MongoDB services to the dependency injection container,
+    /// including IMongoConnection, IMongoDatabaseContext, and generic repositories.
+    /// </remarks>
+    public static IServiceCollection AddMongoDB(this IServiceCollection services, MongoDbOptions options)
+    {
+        services.AddSingleton<IMongoOptionsProvider>(options);
+        services.AddSingleton<IMongoConnectionStringProvider>(options);
+        services.AddSingleton<IMongoDatabaseNameProvider>(options);
+
+        return services.AddMongoDBCore();
     }
 
     /// <summary>
