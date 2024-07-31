@@ -108,6 +108,17 @@ public static class MongoConfigurationRegistryExtensions
     }
 
     /// <summary>
+    /// Registers the TimeZoneInfoSerializationConfiguration to the registry.
+    /// </summary>
+    /// <param name="registry">the IMongoConfigurationRegistry to register the configuration to.</param>
+    /// <returns>The IMongoConfigurationRegistry for method chaining.</returns>
+    public static IMongoConfigurationRegistry RegisterTimeZoneInfoSerializationConfiguration(this IMongoConfigurationRegistry registry)
+    {
+        registry.Register<TimeZoneInfoSerializationConfiguration>();
+        return registry;
+    }
+
+    /// <summary>
     /// Registers all available configurations to the registry.
     /// </summary>
     /// <param name="registry">The IMongoConfigurationRegistry to register the configurations to.</param>
@@ -123,6 +134,7 @@ public static class MongoConfigurationRegistryExtensions
             .RegisterCamelCaseElementNamesConfiguration()
             .RegisterIgnoreIfNullConfiguration()
             .RegisterStringObjectIdGeneratorConfiguration()
-            .RegisterUtcDateTimeSerializationConfiguration();
+            .RegisterUtcDateTimeSerializationConfiguration()
+            .RegisterTimeZoneInfoSerializationConfiguration();
     }
 }

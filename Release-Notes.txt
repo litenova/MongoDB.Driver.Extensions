@@ -1,3 +1,6 @@
+v1.2.0 (2024-07-31)
+⦁ Add 'TimeZoneInfoSerializerConfiguration' to configure the serialization of TimeZoneInfo
+
 v1.1.0 (2024-07-13)
 ⦁ Register `IMongoConnectionStringProvider` and `IMongoDatabaseNameProvider` in DI
 
