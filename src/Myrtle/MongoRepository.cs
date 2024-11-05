@@ -1,4 +1,3 @@
-using MongoDB.Bson;
 using MongoDB.Driver;
 using Myrtle.Abstractions;
 using Myrtle.Abstractions.Repositories;
@@ -17,63 +16,130 @@ namespace Myrtle;
 public class MongoRepository<TDocument, TId> : IMongoRepository<TDocument, TId> where TDocument : class
 {
     /// <summary>
-    /// Gets the MongoDB collection used by this repository.
+    /// The MongoDB collection used by this repository.
     /// </summary>
     protected IMongoCollection<TDocument> Collection { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MongoRepository{TDocument, TId}"/> class.
+    /// The transaction scope used by this repository.
     /// </summary>
-    /// <param name="collectionContext">The context providing access to the MongoDB collection.</param>
-    public MongoRepository(IMongoCollectionContext<TDocument> collectionContext)
-    {
-        Collection = collectionContext.Collection;
-    }
+    protected IMongoTransactionContext TransactionContext { get; }
 
     /// <summary>
-    /// Retrieves a document by its identifier.
+    /// Initializes a new instance of the MongoRepository class with the specified collection context.
     /// </summary>
-    /// <param name="id">The identifier of the document to retrieve.</param>
-    /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
-    /// <returns>The retrieved document, or null if not found.</returns>
+    /// <param name="collectionContext">The collection context to use for MongoDB operations.</param>
+    /// <param name="transactionContext">The transaction scope to use for MongoDB operations.</param>
+    public MongoRepository(
+        IMongoCollectionContext<TDocument> collectionContext,
+        IMongoTransactionContext transactionContext)
+    {
+        Collection = collectionContext.Collection;
+        TransactionContext = transactionContext;
+    }
+
+    /// <inheritdoc />
     public async Task<TDocument?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
     {
         var filter = Builders<TDocument>.Filter.Eq("_id", id);
-        return await Collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
+        return TransactionContext.IsActive
+            ? await Collection.Find(TransactionContext.Session, filter).FirstOrDefaultAsync(cancellationToken)
+            : await Collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
     }
 
-    /// <summary>
-    /// Adds a new document to the collection.
-    /// </summary>
-    /// <param name="document">The document to add.</param>
-    /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
-    /// <returns>The added document.</returns>
-    public async Task<TDocument> AddAsync(TDocument document, CancellationToken cancellationToken = default)
+    /// <inheritdoc />
+    public async Task AddAsync(TDocument document, CancellationToken cancellationToken = default)
     {
-        await Collection.InsertOneAsync(document, cancellationToken: cancellationToken);
-        return document;
+        if (TransactionContext.IsActive)
+        {
+            await Collection.InsertOneAsync(TransactionContext.Session, document, cancellationToken: cancellationToken);
+        }
+        else
+        {
+            await Collection.InsertOneAsync(document, cancellationToken: cancellationToken);
+        }
     }
 
-    /// <summary>
-    /// Updates an existing document in the collection.
-    /// </summary>
-    /// <param name="id">The identifier of the document to update.</param>
-    /// <param name="document">The updated document.</param>
-    /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
+    /// <inheritdoc />
+    public async Task AddManyAsync(
+        IEnumerable<TDocument> documents,
+        CancellationToken cancellationToken = default)
+    {
+        if (TransactionContext.IsActive)
+        {
+            await Collection.InsertManyAsync(TransactionContext.Session, documents, cancellationToken: cancellationToken);
+        }
+        else
+        {
+            await Collection.InsertManyAsync(documents, cancellationToken: cancellationToken);
+        }
+    }
+
+    /// <inheritdoc />
     public async Task UpdateAsync(TId id, TDocument document, CancellationToken cancellationToken = default)
     {
         var filter = Builders<TDocument>.Filter.Eq("_id", id);
-        await Collection.ReplaceOneAsync(filter, document, cancellationToken: cancellationToken);
+
+        if (TransactionContext.IsActive)
+        {
+            await Collection.ReplaceOneAsync(TransactionContext.Session, filter, document, cancellationToken: cancellationToken);
+        }
+        else
+        {
+            await Collection.ReplaceOneAsync(filter, document, cancellationToken: cancellationToken);
+        }
     }
 
-    /// <summary>
-    /// Deletes a document from the collection.
-    /// </summary>
-    /// <param name="id">The identifier of the document to delete.</param>
-    /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
+    /// <inheritdoc />
+    public async Task UpdateManyAsync(
+        IDictionary<TId, TDocument> updates,
+        CancellationToken cancellationToken = default)
+    {
+        var writeModels = updates.Select(kvp =>
+        {
+            var filter = Builders<TDocument>.Filter.Eq("_id", kvp.Key);
+            return new ReplaceOneModel<TDocument>(filter, kvp.Value);
+        });
+
+        if (TransactionContext.IsActive)
+        {
+            await Collection.BulkWriteAsync(TransactionContext.Session, writeModels, cancellationToken: cancellationToken);
+        }
+        else
+        {
+            await Collection.BulkWriteAsync(writeModels, cancellationToken: cancellationToken);
+        }
+    }
+
+    /// <inheritdoc />
     public async Task DeleteAsync(TId id, CancellationToken cancellationToken = default)
     {
         var filter = Builders<TDocument>.Filter.Eq("_id", id);
-        await Collection.DeleteOneAsync(filter, cancellationToken);
+
+        if (TransactionContext.IsActive)
+        {
+            await Collection.DeleteOneAsync(TransactionContext.Session, filter, cancellationToken: cancellationToken);
+        }
+        else
+        {
+            await Collection.DeleteOneAsync(filter, cancellationToken);
+        }
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteManyAsync(
+        IEnumerable<TId> ids,
+        CancellationToken cancellationToken = default)
+    {
+        var filter = Builders<TDocument>.Filter.In("_id", ids);
+
+        if (TransactionContext.IsActive)
+        {
+            await Collection.DeleteManyAsync(TransactionContext.Session, filter, cancellationToken: cancellationToken);
+        }
+        else
+        {
+            await Collection.DeleteManyAsync(filter, cancellationToken);
+        }
     }
 }

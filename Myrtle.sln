@@ -11,7 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-
 		global.json = global.json
 		LICENSE = LICENSE
 		README.md = README.md
-		Release-Notes.txt = Release-Notes.txt
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
@@ -23,6 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logo", "logo", "{C2B92B88-1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{7834C293-9FFA-451E-BC61-56A30F1D1115}"
+	ProjectSection(SolutionItems) = preProject
+		.github\dependabot.yml = .github\dependabot.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F648E961-9787-4E90-A842-212E08F3C8E2}"
 	ProjectSection(SolutionItems) = preProject

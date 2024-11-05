@@ -7,7 +7,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>A. Shafie</Authors>
         <PackageTags>MongoDB;AspNetCore;MongoDbDriverExtensions</PackageTags>
-        <VersionPrefix>1.2.0</VersionPrefix>
+        <VersionPrefix>2.0.0</VersionPrefix>
         <PackageProjectUrl>https://github.com/litenova/Myrtle</PackageProjectUrl>
         <RepositoryUrl>https://github.com/litenova/Myrtle</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>

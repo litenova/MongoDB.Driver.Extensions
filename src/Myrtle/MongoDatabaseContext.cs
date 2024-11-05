@@ -6,5 +6,6 @@ namespace Myrtle;
 
 internal sealed class MongoDatabaseContext(IMongoConnection connection, IMongoDatabaseNameProvider mongoDatabaseNameProvider) : IMongoDatabaseContext
 {
+    /// <inheritdoc /> 
     public IMongoDatabase Database { get; } = connection.Client.GetDatabase(mongoDatabaseNameProvider.DatabaseName);
 }

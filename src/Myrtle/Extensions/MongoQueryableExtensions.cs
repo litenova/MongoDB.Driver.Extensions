@@ -35,9 +35,10 @@ public static class MongoQueryableExtensions
     /// Note: This method executes the query against the database. Ensure that your query
     /// is optimized to avoid performance issues with large datasets.
     /// </remarks>
-    public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IMongoQueryable<T> queryable)
+    public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IQueryable<T> queryable)
     {
         var asyncCursor = await queryable.ToCursorAsync();
+        
         while (await asyncCursor.MoveNextAsync())
         {
             foreach (var current in asyncCursor.Current)

@@ -22,7 +22,7 @@ public interface IMongoRepository<TDocument, TId> where TDocument : class
     /// </summary>
     /// <param name="id">The identifier of the document to retrieve.</param>
     /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
-    /// <returns>The retrieved document, or null if not found.</returns>
+    /// <returns>A task that represents the asynchronous operation, containing the retrieved document, or null if not found.</returns>
     Task<TDocument?> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -30,8 +30,16 @@ public interface IMongoRepository<TDocument, TId> where TDocument : class
     /// </summary>
     /// <param name="document">The document to add.</param>
     /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
-    /// <returns>The added document, potentially with server-generated ID.</returns>
-    Task<TDocument> AddAsync(TDocument document, CancellationToken cancellationToken = default);
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    Task AddAsync(TDocument document, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Adds multiple documents to the collection.
+    /// </summary>
+    /// <param name="documents">The documents to add.</param>
+    /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    Task AddManyAsync(IEnumerable<TDocument> documents, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates an existing document in the collection.
@@ -39,14 +47,30 @@ public interface IMongoRepository<TDocument, TId> where TDocument : class
     /// <param name="id">The identifier of the document to update.</param>
     /// <param name="document">The updated document.</param>
     /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
-    /// <returns>A task representing the asynchronous update operation.</returns>
+    /// <returns>A task that represents the asynchronous update operation.</returns>
     Task UpdateAsync(TId id, TDocument document, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates multiple documents in the collection.
+    /// </summary>
+    /// <param name="updates">A dictionary containing the IDs and documents to update.</param>
+    /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
+    /// <returns>A task that represents the asynchronous update operation.</returns>
+    Task UpdateManyAsync(IDictionary<TId, TDocument> updates, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a document from the collection.
     /// </summary>
     /// <param name="id">The identifier of the document to delete.</param>
     /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
-    /// <returns>A task representing the asynchronous delete operation.</returns>
+    /// <returns>A task that represents the asynchronous delete operation.</returns>
     Task DeleteAsync(TId id, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes multiple documents from the collection.
+    /// </summary>
+    /// <param name="ids">The identifiers of the documents to delete.</param>
+    /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
+    /// <returns>A task that represents the asynchronous delete operation.</returns>
+    Task DeleteManyAsync(IEnumerable<TId> ids, CancellationToken cancellationToken = default);
 }

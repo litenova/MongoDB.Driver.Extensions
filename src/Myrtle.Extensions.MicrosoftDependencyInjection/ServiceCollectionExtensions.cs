@@ -74,6 +74,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped(typeof(IMongoCollectionContext<>), typeof(MongoCollectionContext<>));
         services.AddScoped(typeof(IMongoRepository<,>), typeof(MongoRepository<,>));
+        services.AddScoped<IMongoTransactionContext, MongoTransactionContext>();
 
         return services;
     }

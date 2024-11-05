@@ -34,7 +34,7 @@ public sealed class MongoDbXmlRepository : IXmlRepository
     public IReadOnlyCollection<XElement> GetAllElements()
     {
         return _keyCollection.AsQueryable()
-            .ToEnumerable()
+            .AsEnumerable()
             .Select(key =>
             {
                 _logger.ReadingKeyFromElement(key.FriendlyName, key.Xml);

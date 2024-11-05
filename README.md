@@ -2,7 +2,8 @@
 
 ![Myrtle Logo](https://raw.githubusercontent.com/litenova/Myrtle/main/assets/logo/logo-128x128.png)
 
-Myrtle is a comprehensive collection of useful extensions and configurations for the official MongoDB C# driver. It aims to simplify and enhance the experience of working with MongoDB in .NET applications.
+Myrtle is a comprehensive collection of useful extensions and configurations for the official MongoDB C# driver. It aims
+to simplify and enhance the experience of working with MongoDB in .NET applications.
 
 [![Build Status](https://github.com/litenova/Myrtle/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/litenova/Myrtle/actions/workflows/ci-cd.yml)
 [![Coverage Status](https://coveralls.io/repos/github/litenova/Myrtle/badge.svg?branch=main)](https://coveralls.io/github/litenova/Myrtle?branch=main)
@@ -10,19 +11,20 @@ Myrtle is a comprehensive collection of useful extensions and configurations for
 ## Features
 
 - **Enhanced Configuration**: Simplified setup for MongoDB with various conventions and serialization options.
-- **Dependency Injection**: Easy integration with Microsoft.Extensions.DependencyInjection for ASP.NET Core applications.
+- **Dependency Injection**: Easy integration with Microsoft.Extensions.DependencyInjection for ASP.NET Core
+  applications.
 - **Repository Pattern**: Generic repository implementation for streamlined data access.
 - **Data Protection**: Support for storing ASP.NET Core Data Protection keys in MongoDB.
 - **Extensible Architecture**: Modular design allowing for easy addition of new features and configurations.
 
 ## Packages
 
-| Package | Version | Description |
-|---------|---------|-------------|
-| Myrtle.Abstractions | [![NuGet](https://img.shields.io/nuget/v/Myrtle.Abstractions.svg)](https://www.nuget.org/packages/Myrtle.Abstractions/) | Core abstractions and interfaces for Myrtle |
-| Myrtle | [![NuGet](https://img.shields.io/nuget/v/Myrtle.svg)](https://www.nuget.org/packages/Myrtle/) | Main implementation of Myrtle extensions and configurations |
-| Myrtle.Extensions.MicrosoftDependencyInjection | [![NuGet](https://img.shields.io/nuget/v/Myrtle.Extensions.MicrosoftDependencyInjection.svg)](https://www.nuget.org/packages/Myrtle.Extensions.MicrosoftDependencyInjection/) | Integration with Microsoft.Extensions.DependencyInjection |
-| Myrtle.AspNetCore.DataProtection.Keys | [![NuGet](https://img.shields.io/nuget/v/Myrtle.AspNetCore.DataProtection.Keys.svg)](https://www.nuget.org/packages/Myrtle.AspNetCore.DataProtection.Keys/) | Support for storing ASP.NET Core Data Protection keys in MongoDB |
+| Package                                        | Version                                                                                                                                                                       | Description                                                      |
+|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| Myrtle.Abstractions                            | [![NuGet](https://img.shields.io/nuget/v/Myrtle.Abstractions.svg)](https://www.nuget.org/packages/Myrtle.Abstractions/)                                                       | Core abstractions and interfaces for Myrtle                      |
+| Myrtle                                         | [![NuGet](https://img.shields.io/nuget/v/Myrtle.svg)](https://www.nuget.org/packages/Myrtle/)                                                                                 | Main implementation of Myrtle extensions and configurations      |
+| Myrtle.Extensions.MicrosoftDependencyInjection | [![NuGet](https://img.shields.io/nuget/v/Myrtle.Extensions.MicrosoftDependencyInjection.svg)](https://www.nuget.org/packages/Myrtle.Extensions.MicrosoftDependencyInjection/) | Integration with Microsoft.Extensions.DependencyInjection        |
+| Myrtle.AspNetCore.DataProtection.Keys          | [![NuGet](https://img.shields.io/nuget/v/Myrtle.AspNetCore.DataProtection.Keys.svg)](https://www.nuget.org/packages/Myrtle.AspNetCore.DataProtection.Keys/)                   | Support for storing ASP.NET Core Data Protection keys in MongoDB |
 
 ## Installation
 
@@ -44,6 +46,7 @@ Myrtle provides several key interfaces and abstractions to simplify working with
 - `IMongoRepository<TDocument, TId>`: Defines a generic repository pattern for MongoDB operations.
 - `IMongoConfigurationRegistry`: Allows registration of custom MongoDB configurations.
 - `IMongoConfiguration`: Represents a specific MongoDB configuration.
+- `IMongoTransactionContext`: Represents a MongoDB transaction context.
 
 ## Usage
 
@@ -143,6 +146,38 @@ public class UserService
 }
 ```
 
+### Transaction Management with `IMongoTransactionContext`
+
+The `IMongoTransactionContext` interface allows you to manage MongoDB transactions easily. Here's a simple example of
+how to start, commit, and abort a transaction:
+
+1. **Start a Transaction:**
+   ```csharp
+   public async Task PerformTransactionAsync(IMongoTransactionContext transactionContext)
+   {
+       await transactionContext.StartAsync();
+   }
+   ```
+
+2. **Commit a Transaction:**
+   ```csharp
+   public async Task CompleteTransactionAsync(IMongoTransactionContext transactionContext)
+   {
+       await transactionContext.CommitAsync();
+   }
+   ```
+
+3. **Abort a Transaction:**
+   ```csharp
+   public async Task CancelTransactionAsync(IMongoTransactionContext transactionContext)
+   {
+       await transactionContext.AbortAsync();
+   }
+   ```
+
+   Use these methods within a service or application logic to effectively manage transactional operations with MongoDB,
+   ensuring data consistency and reliability.
+
 ### Data Protection Key Storage
 
 To configure ASP.NET Core Data Protection to store keys in MongoDB:
@@ -158,4 +193,7 @@ Myrtle is licensed under the MIT License. See the [LICENSE](LICENSE) file for de
 
 ## Support
 
-If you encounter any issues or have questions, please [open an issue](https://github.com/litenova/Myrtle/issues) on GitHub.
+If you encounter any issues or have questions, please [open an issue](https://github.com/litenova/Myrtle/issues) on
+GitHub.
+
+

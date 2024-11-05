@@ -12,13 +12,16 @@ internal sealed class MongoConfigurationRegistry : IMongoConfigurationRegistry
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+    /// <inheritdoc /> 
     public int Count => _configurations.Count;
 
+    /// <inheritdoc /> 
     public void Register<T>() where T : IMongoConfiguration, new()
     {
         _configurations.Add(new T());
     }
 
+    /// <inheritdoc /> 
     public void RegisterFromAssembly(Assembly assembly)
     {
         foreach (var type in assembly.GetTypes())

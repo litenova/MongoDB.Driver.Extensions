@@ -6,5 +6,6 @@ namespace Myrtle;
 
 internal sealed class MongoConnection(IMongoConnectionStringProvider connectionStringProvider) : IMongoConnection
 {
+    /// <inheritdoc /> 
     public MongoClient Client { get; } = new(connectionStringProvider.ConnectionString);
 }
